@@ -9,7 +9,6 @@ import { useRoute } from '@react-navigation/native'
 import { EmptyList } from '../ui/EmptyList.component'
 import imageRepository from '../../repositories/image.repository'
 import itemRepository from '../../repositories/item.repository'
-import useItem from '../../hooks/useItem'
 
 type routeParams = {
     listId: number

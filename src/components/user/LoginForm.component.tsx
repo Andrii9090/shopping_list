@@ -10,6 +10,7 @@ import ScreenName from "../../screensName"
 import userRepository from "../../repositories/user.repository"
 import { setAuthToken } from "../../helpers"
 import TokenContext from "../../contexts/token.context"
+import * as Updates from 'expo-updates'
 
 export const LoginForm = () => {
     const { isLoading, data, error, validateForm, setData, setIsLoading } = useLogin()
@@ -35,7 +36,7 @@ export const LoginForm = () => {
                     setTimeout(() => {
                         setData({ email: '', password: '' })
                         setIsLoading(false)
-                        navigator.navigate(ScreenName.Lists)
+                        Updates.reloadAsync()
                     }, 1500)
                 }
             }

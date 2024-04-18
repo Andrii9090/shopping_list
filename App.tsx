@@ -1,8 +1,7 @@
-import React, { useMemo, useState } from 'react'
-import { Platform, SafeAreaView, StyleSheet, View } from 'react-native'
+import React, { useState } from 'react'
+import {SafeAreaView, StatusBar, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Navbar } from './src/components/navbar/Navbar.component';
 import { createStackNavigator } from '@react-navigation/stack';
 import ScreenName from './src/screensName';
@@ -22,15 +21,17 @@ export default function App() {
     const [isLoadingApp, setIsLoadingApp] = useState(true)
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
             <SafeAreaView
                 style={{
                     flex: 1,
-                    padding: 5,
-                    backgroundColor: 'rgba(237, 244, 247, 0.53)',
-                    paddingTop: Platform.OS === 'android' ? 30 : 0,
+                    backgroundColor: 'rgb(222, 222, 222)',
                 }}
-            >
+            ><StatusBar
+                    animated={true}
+                    backgroundColor="rgb(222, 222, 222)"
+                    barStyle="dark-content"
+                    hidden={false}
+                />
                 <TokenContext.Provider value={{ token, setToken, isLoadingApp, setIsLoadingApp }} >
                     <NavigationContainer>
                         <View style={{ flexGrow: 8, justifyContent: 'space-between' }}>
@@ -61,8 +62,6 @@ export default function App() {
                     </NavigationContainer>
                 </TokenContext.Provider>
             </SafeAreaView>
-        </GestureHandlerRootView >
     )
 }
 
-const styles = StyleSheet.create({})

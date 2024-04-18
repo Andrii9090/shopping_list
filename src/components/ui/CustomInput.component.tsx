@@ -27,10 +27,10 @@ export const CustomInput = ({ placeholder, value, error, onChangeTextHandler, se
 
 const styles = StyleSheet.create({
     input: {
-        borderWidth: .1,
+        borderWidth: .3,
         padding: 6,
         borderRadius: 5,
         color: 'black',
-        borderColor:'transparent',
+        borderColor:'rgba(135, 135, 135, 0.5)',
     },
 })

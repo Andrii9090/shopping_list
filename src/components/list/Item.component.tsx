@@ -73,8 +73,6 @@ export default function ItemOfList({ item, isEdit, setIsEdit, setList }: Props) 
                 }
                 {!isEdit &&
                     <ItemUI
-                        list_id={item.id ?? 0}
-                        id={item.id}
                         title={item.title}
                         contextMenu={<ListItemMenu onSelected={(menuId) => selectedMenuHandler(menuId, item.id ?? 0)} />}
                         onPress={() => {

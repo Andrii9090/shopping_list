@@ -1,12 +1,13 @@
 {
   "expo": {
-    "name": "mobile",
-    "slug": "mobile",
-    "version": "1.0.0",
+    "name": "Liston",
+    "slug": "liston",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
+      "show": false,
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
@@ -22,7 +23,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permission": [
+      "permissions": [
         "android.permission.CAMERA",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
@@ -47,13 +48,11 @@
       ],
       "expo-secure-store"
     ],
-    "assets": [
-      "./assets/"
-    ],
     "extra": {
       "eas": {
         "projectId": "a7e181d3-1e35-4ec5-8eed-d7297c8a1b93"
       }
-    }
+    },
+    "owner": "andrii9090"
   }
 }

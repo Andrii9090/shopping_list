@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import ItemRepository from "../repositories/item.repository"
 import { ToastAndroid } from "react-native"
 import { formatTitle } from "../helpers"
@@ -45,7 +45,6 @@ const useItems = (listId: number, items: ListItemType[], setItems: Dispatch<SetS
                 ToastAndroid.show(data.msg, ToastAndroid.SHORT)
             } else {
                 setItems([data.data, ...items])
-                ToastAndroid.show('Item created!', ToastAndroid.SHORT)
             }
         }
         setStatus(loading.SUCCESS)

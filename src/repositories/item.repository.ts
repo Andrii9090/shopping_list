@@ -2,7 +2,7 @@ import IRepository from "./contracts/repository.contract";
 import Repository from "./repository";
 
 class ItemRepository extends Repository implements IRepository<ListItemType, ResponseBodyType> {
-    async create(item: ListItemType): Promise<ResponseBodyType> {
+    async create(item: { title: string, list_id: number, is_active: boolean }): Promise<ResponseBodyType> {
         return this.apiClient.post<ResponseBodyType>('/item', item)
             .then(res => res.data)
             .catch((error) => error.response.data)

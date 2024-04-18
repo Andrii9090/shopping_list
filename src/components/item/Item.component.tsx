@@ -21,7 +21,6 @@ export const Item = ({ item }: Props) => {
 
     useEffect(() => {
         const downloadImage = async () => {
-
             if (item.image !== null) {
                 imageRepository.getImage(item.image)
                     .then((imageData) => {
