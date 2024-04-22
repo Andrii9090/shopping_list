@@ -66,7 +66,7 @@ export const useRegistration = () => {
                 }
                 else {
                     setData(initialData)
-                    setAuthToken(resData?.data.token)
+                    setAuthToken(resData.data.token)
                     ToastAndroid.show('Registration successful!', ToastAndroid.SHORT)
                     setLoading(false)
                     navigation.navigate(ScreenName.Lists)

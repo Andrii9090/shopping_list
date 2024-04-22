@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import Repository from "./repository";
 import { getAuthToken } from "../helpers";
 
@@ -29,20 +29,25 @@ class ImageRepository extends Repository {
 
 
     async getImage(imageUrl: string, isFull = false): Promise<string> {
-        try {
             if (isFull) {
                 imageUrl += '?full=true'
             }
-            const res = await axios.get<string>(imageUrl, {
+            return axios.get<string>(imageUrl, {
                 headers: {
                     Authorization: `Bearer ${getAuthToken()}`
                 }
             })
+            .then(res => {
+                return res.data
+            })
+            .catch((error: AxiosError) => {
+                console.log(error.request.status)
+                console.log(error.request)
+                console.log(error.request.response)
+                console.log(error.response)
+                return ''
+            })
 
-            return res.data
-        } catch (error) {
-            return ''
-        }
     }
 }
 

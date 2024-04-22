@@ -1,5 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useContext } from "react"
-import ItemContext from '../contexts/item.context'
+import { useCallback } from "react"
 import { ToastAndroid } from "react-native"
 import imageRepository from "../repositories/image.repository"
 
@@ -8,12 +7,17 @@ const useSaveImage = (itemId: number) => {
 
     const saveImage = useCallback(async (uri: string, item:ListItemType) => {
         if (uri) {
+            console.log(uri);
+            
             const data = await imageRepository.saveImage(itemId, uri)
+            
             if (data) {
                 if (data.isError) {
                     ToastAndroid.show(data.msg, ToastAndroid.SHORT)
                 }else{
                     item.image = data.data
+                    console.log(data);
+                    
                     ToastAndroid.show("Image saved", ToastAndroid.SHORT)
                 }
             } else {

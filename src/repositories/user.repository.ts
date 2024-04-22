@@ -1,23 +1,23 @@
+import axios, { AxiosError } from "axios";
 import { getAuthToken } from "../helpers";
 import Repository from "./repository";
 
 class UserRopository extends Repository {
 
     async login(email: string, password: string) {
-        return this.apiClient.post<ResponseBodyType>('/user/login', { email, password })
+        return axios.post<ResponseBodyType>(this.baseUrl+'/user/login', { email, password })
             .then(res => res.data)
-            .catch(e => e.response.data)
+            .catch(e => {
+                console.log(e.response.data);
+                
+                return e.response.data})
     }
 
-    async registration(email: string, password: string, repeatPassword: string): Promise<ResponseBodyType | null> {
-        try {
-            const res = await this.apiClient.post<ResponseBodyType>('/user', { email, password, repeatPassword })
-            return res.data
-        } catch (e: any) {
-            if (e.response.data.isError) return await e.response.data
-            return null
+    async registration(email: string, password: string, repeatPassword: string): Promise<ResponseBodyType> {
+            return axios.post<ResponseBodyType>(this.baseUrl+'/user', { email, password, repeatPassword })
+            .then(res => res.data)
+            .catch(e => e.response.data)
         }
-    }
 
     async getUserData(token: string): Promise<UserType | null> {
         try {

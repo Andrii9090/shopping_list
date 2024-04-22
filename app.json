@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Liston",
-    "slug": "liston",
-    "version": "1.0.1",
+    "slug": "mobile",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -53,6 +53,12 @@
         "projectId": "a7e181d3-1e35-4ec5-8eed-d7297c8a1b93"
       }
     },
-    "owner": "andrii9090"
+    "owner": "andrii9090",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/a7e181d3-1e35-4ec5-8eed-d7297c8a1b93"
+    }
   }
 }
