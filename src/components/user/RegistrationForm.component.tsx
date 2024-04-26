@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native"
+import { View, Text, ActivityIndicator, StyleSheet, Image } from "react-native"
 import { Card } from "../ui/Card.component"
 import { CustomInput } from "../ui/CustomInput.component"
 import { CustomButton } from "../ui/CustomButton.component"
@@ -19,8 +19,10 @@ export const RegistrationForm = () => {
         <>
             <ActivityIndicator size="large" color="#0000ff" animating={loading} />
 
-            <View style={{ flex: 1, justifyContent: 'center', margin: 10 }}>
+            <View style={{ justifyContent: 'center', margin: 10 }}>
                 <Card title="Registration">
+                    <View style={{ alignItems: 'center' }}><Image source={require("../../../assets/images/logoListon.png")} style={{ height: 100 }} /></View>
+                    <Text style={{fontSize: 18, fontWeight: 'bold', textAlign: 'center', marginVertical: 10}}>For your lists to be stored in the cloud, registration is required</Text>
                     <CustomInput placeholder="Email" error={error.email} value={data.email} onChangeTextHandler={
                         (text) => {
                             setData({ ...data, email: text })

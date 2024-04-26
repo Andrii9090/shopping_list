@@ -31,7 +31,7 @@ export const Lists = () => {
                 if (res?.isError) {
                     ToastAndroid.show(res.msg, ToastAndroid.SHORT)
                 } else {
-                    setLists([res.data, ...lists])
+                    setLists((prev) => [res.data, ...prev])
                 }
             } else {
                 ToastAndroid.show('Conection error!', ToastAndroid.SHORT)

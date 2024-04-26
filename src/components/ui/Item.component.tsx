@@ -21,7 +21,6 @@ export const ItemUI = ({ title, contextMenu, onLongPressHandler, is_active = tru
     }
 
     return (
-        <>
             <TouchableHighlight
                 style={styles.touch}
                 onLongPress={onLongPressHandler}
@@ -33,7 +32,6 @@ export const ItemUI = ({ title, contextMenu, onLongPressHandler, is_active = tru
                     {contextMenu}
                 </View>
             </TouchableHighlight>
-        </>
     )
 }
 

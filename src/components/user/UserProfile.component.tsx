@@ -50,12 +50,16 @@ export const UserProfile = () => {
                 </View>
             </CustomModal>
             <View style={{ flex: 1, justifyContent: 'center', margin: 10 }}>
-                <Card title="User Profile" >
+                <Card title="User Profile">
                     <View style={{ alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row' }}>
                         {isLoading && <ActivityIndicator size={'large'} />}
-                        {!isEditing && <Text style={{ marginBottom: 5, fontSize: 18, textAlign: 'center' }}>{user?.email}</Text>}
+                        {!isEditing && <View style={{ flexGrow: 10 }}><Text style={{ marginBottom: 5, fontSize: 18, textAlign: 'center' }}>{user?.email}</Text></View>}
                         {isEditing && <ChangeEmail user={user} setUser={setUser} setIsEditing={setIsEditing} isEditing={isEditing} />}
-                        {!isEditing && <CustomButton onClick={() => setIsEditing(!isEditing)} backgroundColor={'transparent'}><Text style={[styles.button, { color: 'rgb(0, 51, 133)' }]}>Change Email</Text></CustomButton>}
+                        {!isEditing &&
+                            <View style={{ flexGrow: 1 }}><CustomButton onClick={() => setIsEditing(!isEditing)} backgroundColor={'transparent'}>
+                                <Text style={[styles.button, { color: 'rgb(0, 51, 133)' }]}>Change Email</Text>
+                            </CustomButton></View>
+                        }
                     </View>
                     <CustomButton onClick={() => {
                         userRepository.getAccessCode().then((res) => {

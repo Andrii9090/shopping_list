@@ -7,9 +7,8 @@ import { FontAwesome } from '@expo/vector-icons'
 import { SearchForm } from './SearchForm.component'
 import { CustomInput } from './CustomInput.component'
 import { CustomButton } from './CustomButton.component'
-import itemRepository from '../../repositories/item.repository'
 
-const iconSize = 30
+const iconSize = 33
 
 type Props = {
     placeholder: string
@@ -33,7 +32,7 @@ const CreateEditForm = ({ title = '', placeholder, searchData, clickSearchHandle
                 setTitle('')
             }} />}
             <View style={styles.container}>
-                <View style={{ flexGrow: 1 }}>
+                <View style={{ flexGrow: 12, flexShrink: 4 }}>
                     <CustomInput
                         placeholder={placeholder}
                         onChangeTextHandler={(text) => {
@@ -43,13 +42,10 @@ const CreateEditForm = ({ title = '', placeholder, searchData, clickSearchHandle
                         value={value} />
                 </View>
 
-                <View style={{ flexGrow: 0 }}>
+                <View style={{ flexGrow: 0, flexShrink: 1, alignContent: 'center' }}>
                     <CustomButton
                         backgroundColor='transparent'
                         onClick={() => {
-                            if (!value){
-                                // clickSearchHandler()
-                            }
                             onPress(value)
                             setTitle('')
                         }}>
