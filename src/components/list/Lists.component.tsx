@@ -41,7 +41,7 @@ export const Lists = () => {
 
     return (
         <>
-            <View style={{ margin: 10, marginTop: 15, flexGrow: 0 }}>
+            <View style={{ margin: 5, marginTop: 15, flexGrow: 0 }}>
                 <CreateEditForm
                     placeholder="List's name"
                     onPress={(title: string) => {
@@ -51,12 +51,11 @@ export const Lists = () => {
                     colorIcon='rgb(0, 51, 133)'
                 />
             </View>
-            <View style={{ flexGrow: 10 }}>
-
+            <View style={{ flexGrow: 10, marginBottom: 55 }}>
                 <ListProviderComponent>
                     <ListContext.Provider value={{ lists, setLists }}>
                         <FlatList
-                            style={{ padding: 3 }}
+                            style={{ padding: 4, backgroundColor: 'rgb(245, 245, 245)', margin:4 }}
                             ListEmptyComponent={<EmptyList text="No lists" />}
                             refreshing={status === loading.LOADING}
                             onRefresh={() => {

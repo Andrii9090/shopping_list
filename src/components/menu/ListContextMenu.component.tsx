@@ -28,7 +28,7 @@ export const ListItemMenu = ({ onSelected }: Props) => {
                 <Ionicons
                     name="menu"
                     size={23}
-                    color="rgba(100, 103, 104, 0.53)"
+                    color="'rgb(0, 51, 133)'"
                 />
             </MenuTrigger>
             <MenuOptions>
@@ -36,10 +36,10 @@ export const ListItemMenu = ({ onSelected }: Props) => {
                     <Text>Edit</Text>
                 </MenuOption>
                 <MenuOption value={MenuType.ADD_USER}>
-                    <Text style={{ color: 'green' }}>Add user to list</Text>
+                    <Text>Add user to list</Text>
                 </MenuOption>
                 <MenuOption value={MenuType.CLEAR_INACTIVE}>
-                    <Text style={{ color: 'rgb(0, 51, 133)' }}>Clear inactive items</Text>
+                    <Text>Clear inactive items</Text>
                 </MenuOption>
                 <MenuOption value={MenuType.REMOVE}>
                     <Text style={{ color: 'rgb(205, 47, 29)', fontWeight: 'bold' }}>Remove list</Text>

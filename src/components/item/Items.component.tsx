@@ -4,11 +4,12 @@ import { BtnModal, ImageModal } from './Image.component'
 import CreateEditForm from '../ui/CreateEditForm.component'
 import ListItemsContext from '../../contexts/item.context'
 import useItems, { loading } from '../../hooks/useItems'
-import { ListRenderItemInfo, ToastAndroid, View, VirtualizedList } from 'react-native'
+import { Alert, ListRenderItemInfo, ToastAndroid, View, VirtualizedList } from 'react-native'
 import { useRoute } from '@react-navigation/native'
 import { EmptyList } from '../ui/EmptyList.component'
 import imageRepository from '../../repositories/image.repository'
 import itemRepository from '../../repositories/item.repository'
+import { FlatList } from 'react-native-gesture-handler'
 
 type routeParams = {
     listId: number
@@ -54,7 +55,7 @@ export const Items = () => {
                 if (data.isError) {
                     ToastAndroid.show(data.msg, ToastAndroid.SHORT)
                 } else {
-                    setItems((prev)=>[data.data, ...prev])
+                    setItems((prev) => [data.data, ...prev])
                 }
             } else {
                 ToastAndroid.show('Conection error!', ToastAndroid.SHORT)
@@ -68,64 +69,78 @@ export const Items = () => {
         getItems(listId)
     }, [])
 
-    const renderItem = ((itemData: ListRenderItemInfo<ListItemType>) => <Item item={itemData.item} />)
-    const getItem = (_item: unknown, index: number): ListItemType => items[index]
-
     return (
         <ListItemsContext.Provider value={{ items, setItems, editingId, setEditingId, imageUrl, setImageUrl }}>
             <ImageModal
                 onPress={async (selectedBtn: string) => {
                     if (selectedBtn === BtnModal.DELETE) {
-                        const id = items.filter((item) => item.image === imageUrl)[0].id
-                        setImageUrl('')
-                        if (id) {
-                            const data = await imageRepository.deleteImage(id)
-                            if (data) {
-                                if (data.isError) {
-                                    ToastAndroid.show(data.message, ToastAndroid.SHORT)
-                                } else {
-                                    setItems((prev) => [...prev.map((item) => {
-                                        if (item.id === id) {
-                                            item = data.data
-                                        }
-                                        return item
-                                    })])
-                                }
-                            } else {
-                                ToastAndroid.show('Conection error!', ToastAndroid.SHORT)
-                            }
-                        }
+                        Alert.alert('Remove?', 'Do you want remove this?', [
+                            {
+                                text: 'Yes',
+                                onPress: () => {
+                                    const id = items.filter((item) => item.image === imageUrl)[0].id
+                                    setImageUrl('')
+                                    if (id) {
+                                        imageRepository.deleteImage(id)
+                                            .then((data) => {
+                                                if (data) {
+                                                    if (data.isError) {
+                                                        ToastAndroid.show(data.message, ToastAndroid.SHORT)
+                                                    } else {
+                                                        setItems((prev) => [...prev.map((item) => {
+                                                            if (item.id === id) {
+                                                                item = data.data
+                                                            }
+                                                            return item
+                                                        })])
+                                                    }
+                                                } else {
+                                                    ToastAndroid.show('Conection error!', ToastAndroid.SHORT)
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                ToastAndroid.show(err.message, ToastAndroid.SHORT)
+                                            })
+                                    }
+                                },
+                            },
+                            {
+                                text: 'Cancel',
+                                style: 'cancel',
+                                onPress: () => {
+                                },
+                            },
+                        ])
+
                     }
                 }}
             />
-            <View style={{ margin: 10, marginTop: 15 }}>
+            <View style={{ margin: 5, marginTop: 15 }}>
                 <CreateEditForm
                     onChangeTextHandler={onChangeTextHandler}
                     clickSearchHandler={clickSearchHandler}
                     isSearch={true}
                     searchData={searchData}
                     placeholder="Item's name"
+                    colorIcon={'rgb(0, 51, 133)'}
                     onPress={(title: string) => {
                         if (title) {
                             createItem(title)
                         }
                     }} iconName={'plus'} />
             </View>
-            <View style={{ flexGrow: 10, marginBottom: 65 }}>
-                <VirtualizedList
+            <View style={{ marginBottom: 58 }}>
+                <FlatList
                     ListEmptyComponent={
                         <EmptyList text="No items" />
                     }
-                    data={items}
                     refreshing={status === loading.LOADING}
                     onRefresh={() => {
                         getItems(listId)
                     }}
-                    style={{ padding: 3 }}
-                    keyExtractor={(item, index) => item.id.toString()}
-                    getItem={getItem}
-                    getItemCount={() => items.length}
-                    renderItem={renderItem}
+                    data={items}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={(itemData: ListRenderItemInfo<ListItemType>) => <Item item={itemData.item} key={itemData.item.id} />}
                 />
             </View>
         </ListItemsContext.Provider>

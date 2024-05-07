@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
-import { GestureResponderEvent, View } from 'react-native'
+import { GestureResponderEvent, View, StyleSheet } from 'react-native'
 
-import { ItemUI } from '../ui/Item.component'
+import { ItemUI } from '../ui/ItemUI.component'
 
 import { LeftActions } from './LeftAction.component'
 import useItem from '../../hooks/useItem'
@@ -40,31 +40,33 @@ export const Item = ({ item }: Props) => {
     }, [item.image, item.updatedAt])
 
     return (
-        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center' }}>
-            <View style={{ flexGrow: 2 }}>
-                <LeftActions item={item} />
-            </View>
+        <>
             {editingId !== item.id &&
-                <View style={{ flexGrow: 15 }}>
-                    <ItemUI
-                        onLongPressHandler={(event: GestureResponderEvent) => setEditingId(item.id || -1)}
-                        title={item.title}
-                        is_active={item.is_active}
-                        onPress={() => {
-                            updateItem({ ...item, is_active: !item.is_active })
-                        }}
-                    />
+                <View style={styles.container}>
+                    <View style={{marginEnd:5}}>
+                        <LeftActions item={item} />
+                    </View>
+                    <View style={{flex:10}}>
+                        <ItemUI
+                            onLongPressHandler={(event: GestureResponderEvent) => setEditingId(item.id || -1)}
+                            title={item.title}
+                            is_active={item.is_active}
+                            onPress={() => {
+                                updateItem({ ...item, is_active: !item.is_active })
+                            }}
+                        />
+                    </View>
                 </View>
             }
             {editingId === item.id &&
-                <View style={{ flexGrow: 15, flexDirection: 'row' }}>
-                    <View style={{ flexGrow: 10, flexShrink:3 }} >
-                        <CreateEditForm title={item.title} iconName='pencil' colorIcon='rgb(0, 51, 133)' placeholder={''} onPress={(title: string) => {
+                <View style={[styles.container, { justifyContent: 'space-between'}]}>
+                    <View style={{flexGrow: 1   , flexShrink:1}}>
+                        <CreateEditForm title={item.title} iconName='check' colorIcon='rgb(0, 51, 133)' placeholder={''} onPress={(title: string) => {
                             setEditingId(-1)
                             updateItem({ ...item, title })
                         }} />
                     </View>
-                    <View style={{ flexGrow: 1, flexShrink: 1, alignContent: 'center' }}>
+                    <View >
                         <CustomButton style={{ marginTop: 10 }} backgroundColor='transparent' onClick={() => {
                             deleteHandler(item)
                             setEditingId(-1)
@@ -74,7 +76,26 @@ export const Item = ({ item }: Props) => {
                     </View>
                 </View>
             }
-        </View>
+        </>
     )
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        marginBottom: 6,
+        padding:4,
+        marginHorizontal: 4,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 4,
+        },
+        shadowOpacity: 0.5,
+        elevation: 2,
+    },
+})

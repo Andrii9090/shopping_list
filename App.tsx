@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {SafeAreaView, StatusBar, View } from 'react-native'
+import { SafeAreaView, StatusBar, View } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 
 import { Navbar } from './src/components/navbar/Navbar.component';
@@ -24,7 +24,6 @@ export default function App() {
             <SafeAreaView
                 style={{
                     flex: 1,
-                    backgroundColor: 'rgb(222, 222, 222)',
                 }}
             ><StatusBar
                     animated={true}

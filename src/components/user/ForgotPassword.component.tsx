@@ -1,13 +1,18 @@
 import React, { useState } from "react"
-import { View, Text } from "react-native"
+import { View, Text, ToastAndroid } from "react-native"
 import { Card } from "../ui/Card.component"
 import { CustomInput } from "../ui/CustomInput.component"
 import { CustomButton } from "../ui/CustomButton.component"
 import { validateEmail } from "../../helpers"
+import userRepository from "../../repositories/user.repository"
+import { useNavigation } from "@react-navigation/native"
+import { StackNavigationProp } from "@react-navigation/stack"
+import ScreenName from "../../screensName"
 
 export const ForgotPassword = () => {
     const [email, setEmail] = useState<string>('')
     const [error, setError] = useState<string>('')
+    const navigator = useNavigation<StackNavigationProp<RootStackParamList>>()
 
     const validateForm = () => {
         if (validateEmail(email)) {
@@ -18,7 +23,15 @@ export const ForgotPassword = () => {
     }
     const sendPasswordHandler = () => {
         if (!error) {
-            console.log('send password');
+            userRepository.resetPassword(email)
+            .then((res) => {
+                if(res) {
+                    setEmail('')
+                    setError('')
+                    ToastAndroid.show('Email sent', ToastAndroid.TOP)
+                    navigator.navigate(ScreenName.Login)
+                }
+            })
         } 
     }
 

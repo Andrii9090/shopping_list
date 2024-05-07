@@ -5,6 +5,8 @@ import { CustomButton } from '../ui/CustomButton.component'
 import { loading } from '../../hooks/useItems'
 import imageRepository from '../../repositories/image.repository'
 import ListItemsContext from '../../contexts/item.context'
+import { FontAwesome } from '@expo/vector-icons'
+
 
 type Props = {
     onPress: Function
@@ -40,29 +42,39 @@ export const ImageModal = ({ onPress }: Props) => {
             setImageUrl('')
         }}>
             <ActivityIndicator style={{ position: 'absolute', top: '50%', left: '50%', flex: 1 }} size="large" color="rgba(95, 20, 200, 0.7)" animating={status === loading.LOADING} />
-            <Image
+            {image && <Image
                 src={image}
                 style={{
                     flex: 1,
                     width: '100%',
                 }}
-            />
+            />}
             <View style={styles.container}>
                 <CustomButton
-                    backgroundColor='rgb(0, 51, 133)'
+                    style={{ padding: 8 }}
+                    backgroundColor='rgba(171, 171, 171, 0.3)'
                     onClick={() => {
                         onPress(BtnModal.DELETE)
                     }} >
-                    <Text style={[styles.btnModalText, { color: 'rgb(224, 116, 0)', padding: 8 }]}>Delete</Text>
+                    <FontAwesome
+                        name='trash'
+                        size={25}
+                        color='rgba(179, 48, 0, 0.86)'
+                    />
                 </CustomButton>
                 <CustomButton
-                    backgroundColor='rgb(0, 51, 133)'
+                    style={{ padding: 8 }}
+                    backgroundColor='rgba(171, 171, 171, 0.3)'
                     onClick={() => {
                         setImage('')
                         setImageUrl('')
                     }}
                 >
-                    <Text style={[styles.btnModalText, { color: 'rgb(255, 255, 255)', padding: 8 }]}>Close</Text>
+                    <FontAwesome
+                        name='close'
+                        size={25}
+                        color='white'
+                    />
                 </CustomButton>
             </View>
         </CustomModal >
@@ -71,7 +83,6 @@ export const ImageModal = ({ onPress }: Props) => {
 
 const styles = StyleSheet.create({
     btnModal: {
-        padding: 10,
         borderRadius: 5,
     },
     btnModalText: {
@@ -79,12 +90,11 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     container: {
+        position: 'absolute',
+        top: 0,
         width: '100%',
-        backgroundColor: 'rgba(61, 61, 61, 0.9)',
-        flexGrow: 0,
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 10,
     }
 })

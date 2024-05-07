@@ -82,9 +82,7 @@ export const UserProfile = () => {
                             navigator.navigate(ScreenName.Login)
                         })
                     }} backgroundColor={'rgb(235, 133, 0)'}><Text style={styles.button}>Logout</Text></CustomButton>
-                    <CustomButton onClick={() => navigator.navigate(ScreenName.ForgotPassword)} backgroundColor={'rgb(0, 51, 133), 0.7)'}>
-                        <Text style={styles.button}>Change password</Text>
-                    </CustomButton>
+                    
                 </Card>
             </View >
         </>

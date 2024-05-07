@@ -1,6 +1,6 @@
-import { Animated, ToastAndroid, View } from 'react-native'
+import { Animated, StyleSheet, ToastAndroid, View } from 'react-native'
 import React, { Dispatch, useCallback, useRef } from 'react'
-import { ItemUI } from '../ui/Item.component'
+import { ItemUI } from '../ui/ItemUI.component'
 import { ListItemMenu } from '../menu/ListContextMenu.component'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -62,26 +62,49 @@ export default function ItemOfList({ item, isEdit, setIsEdit, setList }: Props) 
     }
 
     return (
-        <View>
+        <>
             {modalVisible && <AddUser modalVisible={modalVisible} setModalVisible={setModalVisible} onSubmitHandler={onSubmitUserCodeHandler} />}
-            <Animated.View
-                style={{ opacity: fadeAnim }}>
-                {isEdit &&
-                    <View style={{ marginBottom: 4, borderColor:'rgba(135, 135, 135, 0.5)', borderRadius: 5, borderWidth: 0.5 }}>
-                        <CreateEditForm title={item.title} onPress={(text: string) => updateHandler(text)} iconName='pencil' colorIcon='rgb(0, 51, 133)' placeholder={''} />
+            {isEdit &&
+                <View style={{ marginBottom: 4, borderColor: 'rgba(135, 135, 135, 0.5)', borderRadius: 5, borderWidth: 0.5 }}>
+                    <CreateEditForm title={item.title} onPress={(text: string) => updateHandler(text)} iconName='check' colorIcon='rgb(0, 51, 133)' placeholder={''} />
+                </View>
+            }
+            {!isEdit &&
+                <View style={styles.container}>
+                    <View style={{ flex: 10 }}>
+                        <ItemUI
+                            title={item.title}
+                            onPress={() => {
+                                navigation.navigate(ScreenName.ListItems, { listId: item.id ?? 0 })
+                            }}
+
+                            onLongPressHandler={() => setIsEdit(item.id ?? -1)}
+                        />
                     </View>
-                }
-                {!isEdit &&
-                    <ItemUI
-                        title={item.title}
-                        contextMenu={<ListItemMenu onSelected={(menuId) => selectedMenuHandler(menuId, item.id ?? 0)} />}
-                        onPress={() => {
-                            navigation.navigate(ScreenName.ListItems, { listId: item.id ?? 0 })
-                        }}
-                    />
-                }
-            </Animated.View>
-        </View >
+                    <View style={{ flex: 1 }}>
+                        <ListItemMenu onSelected={(menuId) => selectedMenuHandler(menuId, item.id ?? 0)} />
+                    </View>
+                </View >
+            }
+        </ >
     )
 }
 
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        padding: 4,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: 'white',
+        marginBottom: 4,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: -2,
+            height: -4,
+        },
+        shadowOpacity: 0.5,
+        elevation: 2,
+    },
+})

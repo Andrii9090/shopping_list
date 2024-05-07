@@ -12,12 +12,15 @@ export const Navbar = () => {
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
     return (
         <View style={styles.container}>
+
             <Pressable
                 style={({ pressed }) => [
                     {
                         backgroundColor: 'transparent',
                         opacity: pressed ? 0.9 : 1,
-                        padding: 3,
+                        flex: 1,
+                        alignItems: 'center',
+                        paddingVertical: 5,
                     },
                 ]}
                 onPress={() => {
@@ -27,7 +30,7 @@ export const Navbar = () => {
                 <Ionicons
                     name="home"
                     size={iconSize}
-                    color="rgba(0, 56, 83, 0.68)"
+                    color="rgba(0, 51, 133, .8)"
                 />
             </Pressable>
             <Pressable
@@ -35,7 +38,7 @@ export const Navbar = () => {
                     {
                         backgroundColor: 'transparent',
                         opacity: pressed ? 0.9 : 1,
-                        padding: 3,
+                        flex: 1, alignItems: 'center', paddingVertical: 5
                     },
                 ]}
 
@@ -46,7 +49,7 @@ export const Navbar = () => {
                 <Ionicons
                     name="person"
                     size={iconSize}
-                    color="rgba(0, 56, 83, 0.68)"
+                    color="rgba(0, 51, 133, .8)"
                 />
             </Pressable>
         </View>
@@ -55,18 +58,15 @@ export const Navbar = () => {
 
 const styles = StyleSheet.create({
     container: {
-        justifyContent: 'space-around',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
         position: 'absolute',
         bottom: 0,
         left: 0,
-        width: '100%',
-        borderTopWidth: 0.4,
-        borderTopColor: 'rgba(0, 56, 83, 0.38)',
-        paddingVertical: 3,
-        paddingHorizontal: 3,
-        alignItems: 'center',
         flexDirection: 'row',
         backgroundColor: 'white',
+        borderTopWidth: .5,
+        borderTopColor: "rgba(171, 171, 171, 0.88)",
     },
     wrapperustom: {},
 })

@@ -76,6 +76,9 @@ export const LoginForm = () => {
                     <CustomButton style={styles.button} backgroundColor="rgb(0, 51, 133)" onClick={() => navigator.navigate(ScreenName.Registration)}>
                         <Text style={styles.buttonTxt}>Registration</Text>
                     </CustomButton>
+                    <CustomButton onClick={() => navigator.navigate(ScreenName.ForgotPassword)} backgroundColor={'rgb(245, 155, 0), 0.7)'}>
+                        <Text style={styles.buttonTxt}>Change password</Text>
+                    </CustomButton>
                 </View>
             </Card >
         </View >
